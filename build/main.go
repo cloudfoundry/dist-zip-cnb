@@ -44,7 +44,7 @@ func b(build build.Build) (int, error) {
 	if d, ok, err := distribution.NewDistribution(build); err != nil {
 		return build.Failure(102), err
 	} else if ok {
-		build.Logger.FirstLine(build.Logger.PrettyIdentity(build.Buildpack))
+		build.Logger.Title(build.Buildpack)
 
 		if err = d.Contribute(); err != nil {
 			return build.Failure(103), err

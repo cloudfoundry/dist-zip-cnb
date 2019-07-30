@@ -25,7 +25,7 @@ import (
 	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/layers"
 	"github.com/cloudfoundry/libcfbuildpack/test"
-	. "github.com/onsi/gomega"
+	"github.com/onsi/gomega"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 )
@@ -33,7 +33,7 @@ import (
 func TestBuild(t *testing.T) {
 	spec.Run(t, "Build", func(t *testing.T, _ spec.G, it spec.S) {
 
-		g := NewGomegaWithT(t)
+		g := gomega.NewWithT(t)
 
 		var f *test.BuildFactory
 
@@ -44,8 +44,8 @@ func TestBuild(t *testing.T) {
 		it("returns false with no jvm-application dependency", func() {
 			_, ok, err := distribution.NewDistribution(f.Build)
 
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeFalse())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeFalse())
 		})
 
 		it("returns false with zero scripts", func() {
@@ -55,8 +55,8 @@ func TestBuild(t *testing.T) {
 
 			_, ok, err := distribution.NewDistribution(f.Build)
 
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeFalse())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeFalse())
 		})
 
 		it("returns false with two scripts", func() {
@@ -67,8 +67,8 @@ func TestBuild(t *testing.T) {
 
 			_, ok, err := distribution.NewDistribution(f.Build)
 
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeFalse())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeFalse())
 		})
 
 		it("returns true with one script", func() {
@@ -78,8 +78,8 @@ func TestBuild(t *testing.T) {
 
 			_, ok, err := distribution.NewDistribution(f.Build)
 
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(ok).To(BeTrue())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(ok).To(gomega.BeTrue())
 		})
 
 		it("contributes command", func() {
@@ -89,8 +89,8 @@ func TestBuild(t *testing.T) {
 
 			d, _, err := distribution.NewDistribution(f.Build)
 
-			g.Expect(err).NotTo(HaveOccurred())
-			g.Expect(d.Contribute()).To(Succeed())
+			g.Expect(err).NotTo(gomega.HaveOccurred())
+			g.Expect(d.Contribute()).To(gomega.Succeed())
 
 			command := filepath.Join(f.Build.Application.Root, "application-0.0.1", "bin", "alpha")
 

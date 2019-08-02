@@ -20,7 +20,6 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/build"
 	"github.com/cloudfoundry/libcfbuildpack/layers"
 )
@@ -41,11 +40,6 @@ func (d Distribution) Contribute() error {
 }
 
 func NewDistribution(build build.Build) (Distribution, bool, error) {
-	_, ok := build.BuildPlan[jvmapplication.Dependency]
-	if !ok {
-		return Distribution{}, false, nil
-	}
-
 	l, err := launcher(build.Application.Root)
 	if err != nil {
 		return Distribution{}, false, err

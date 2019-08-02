@@ -20,9 +20,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/buildpack/libbuildpack/buildplan"
 	"github.com/cloudfoundry/dist-zip-cnb/distribution"
-	"github.com/cloudfoundry/jvm-application-cnb/jvmapplication"
 	"github.com/cloudfoundry/libcfbuildpack/layers"
 	"github.com/cloudfoundry/libcfbuildpack/test"
 	"github.com/onsi/gomega"
@@ -41,17 +39,8 @@ func TestBuild(t *testing.T) {
 			f = test.NewBuildFactory(t)
 		})
 
-		it("returns false with no jvm-application dependency", func() {
-			_, ok, err := distribution.NewDistribution(f.Build)
-
-			g.Expect(err).NotTo(gomega.HaveOccurred())
-			g.Expect(ok).To(gomega.BeFalse())
-		})
-
 		it("returns false with zero scripts", func() {
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "bravo.bat")
-
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
 
 			_, ok, err := distribution.NewDistribution(f.Build)
 
@@ -60,7 +49,6 @@ func TestBuild(t *testing.T) {
 		})
 
 		it("returns false with two scripts", func() {
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "alpha")
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "bravo.bat")
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "charlie")
@@ -72,7 +60,6 @@ func TestBuild(t *testing.T) {
 		})
 
 		it("returns true with one script", func() {
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "alpha")
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "bravo.bat")
 
@@ -83,7 +70,6 @@ func TestBuild(t *testing.T) {
 		})
 
 		it("contributes command", func() {
-			f.AddBuildPlan(jvmapplication.Dependency, buildplan.Dependency{})
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "alpha")
 			test.TouchFile(t, f.Build.Application.Root, "application-0.0.1", "bin", "bravo.bat")
 

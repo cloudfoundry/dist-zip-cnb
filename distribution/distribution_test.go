@@ -82,9 +82,9 @@ func TestBuild(t *testing.T) {
 
 			g.Expect(f.Build.Layers).To(test.HaveApplicationMetadata(layers.Metadata{
 				Processes: layers.Processes{
-					{"dist-zip", command},
-					{"task", command},
-					{"web", command},
+					{Type: "dist-zip", Command: command},
+					{Type: "task", Command: command},
+					{Type: "web", Command: command},
 				},
 			}))
 		})

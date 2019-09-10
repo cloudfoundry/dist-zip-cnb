@@ -32,9 +32,9 @@ type Distribution struct {
 func (d Distribution) Contribute() error {
 	return d.layers.WriteApplicationMetadata(layers.Metadata{
 		Processes: layers.Processes{
-			{"dist-zip", d.launcher},
-			{"task", d.launcher},
-			{"web", d.launcher},
+			{Type: "dist-zip", Command: d.launcher},
+			{Type: "task", Command: d.launcher},
+			{Type: "web", Command: d.launcher},
 		},
 	})
 }

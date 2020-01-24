@@ -20,8 +20,8 @@ import (
 	"path/filepath"
 	"regexp"
 
-	"github.com/cloudfoundry/libcfbuildpack/build"
-	"github.com/cloudfoundry/libcfbuildpack/layers"
+	"github.com/cloudfoundry/libcfbuildpack/v2/build"
+	"github.com/cloudfoundry/libcfbuildpack/v2/layers"
 )
 
 type Distribution struct {
